@@ -14,7 +14,7 @@ async function loadMessage() {
     statusEl.className = last.Type;
 
     updatedEl.textContent =
-      "Ostatnia aktualizacja: " +
+      "Ostatnia aktualizacja: " + last["Timestamp"];
       new Date().toLocaleString("pl-PL");
 
   } catch {
@@ -25,6 +25,7 @@ async function loadMessage() {
 
 loadMessage();
 setInterval(loadMessage, 30000);
+
 
 
 
