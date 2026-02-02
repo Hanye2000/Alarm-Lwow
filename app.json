@@ -1,29 +1,29 @@
-async function loadAlert() {
+const SHEET_URL =
+  "https://opensheet.elk.sh/1_IiaZRi0UJQ6AuTduIM_i3ho0YlSkS5E01yQXk7yDWo/Sheet1";
+
+async function loadMessage() {
   try {
-    const response = await fetch("API_URL_HERE");
-    const data = await response.json();
+    const res = await fetch(SHEET_URL);
+    const rows = await res.json();
+    const last = rows[rows.length - 1];
 
     const statusEl = document.getElementById("status");
     const updatedEl = document.getElementById("updated");
 
-    if (data.alert === true) {
-      statusEl.textContent = "TRWA ALARM POWIETRZNY";
-      statusEl.className = "alert";
-    } else {
-      statusEl.textContent = "Brak alarmu powietrznego";
-      statusEl.className = "safe";
-    }
+    statusEl.textContent = last.Message;
+    statusEl.className = last.Type;
 
     updatedEl.textContent =
       "Ostatnia aktualizacja: " +
-      new Date(data.updated_at).toLocaleTimeString("pl-PL");
+      new Date().toLocaleString("pl-PL");
 
-  } catch (err) {
+  } catch {
     document.getElementById("status").textContent =
-      "Błąd pobierania danych";
+      "Błąd ładowania danych";
   }
 }
 
-// refresh every 30 seconds
-loadAlert();
-setInterval(loadAlert, 30000);
+loadMessage();
+setInterval(loadMessage, 30000);
+
+
