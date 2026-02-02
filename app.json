@@ -1,5 +1,5 @@
 const SHEET_URL =
-  "https://opensheet.elk.sh/1_IiaZRi0UJQ6AuTduIM_i3ho0YlSkS5E01yQXk7yDWo/Sheet%201";
+  "https://opensheet.elk.sh/1_IiaZRi0UJQ6AuTduIM_i3ho0YlSkS5E01yQk7yDWo/Sheet%201";
 
 async function loadMessage() {
   try {
@@ -11,13 +11,17 @@ async function loadMessage() {
     const updatedEl = document.getElementById("updated");
 
     statusEl.textContent = last.Message;
-    statusEl.className = last.Type;
+    statusEl.className = last.Type; // must match CSS classes
 
+    // Parse timestamp manually for dd.mm.yyyy hh:mm:ss format
+    const [datePart, timePart] = last.Timestamp.split(" ");
+    const [day, month, year] = datePart.split(".");
+    const formattedDate = new Date(`${year}-${month}-${day}T${timePart}`);
     updatedEl.textContent =
-      "Ostatnia aktualizacja: " + last["Timestamp"];
-      new Date().toLocaleString("pl-PL");
+      "Ostatnia aktualizacja: " + formattedDate.toLocaleString("pl-PL");
 
-  } catch {
+  } catch (err) {
+    console.error(err);
     document.getElementById("status").textContent =
       "Błąd ładowania danych";
   }
@@ -25,6 +29,8 @@ async function loadMessage() {
 
 loadMessage();
 setInterval(loadMessage, 30000);
+
+
 
 
 
