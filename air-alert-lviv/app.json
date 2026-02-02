@@ -1,0 +1,29 @@
+async function loadAlert() {
+  try {
+    const response = await fetch("API_URL_HERE");
+    const data = await response.json();
+
+    const statusEl = document.getElementById("status");
+    const updatedEl = document.getElementById("updated");
+
+    if (data.alert === true) {
+      statusEl.textContent = "TRWA ALARM POWIETRZNY";
+      statusEl.className = "alert";
+    } else {
+      statusEl.textContent = "Brak alarmu powietrznego";
+      statusEl.className = "safe";
+    }
+
+    updatedEl.textContent =
+      "Ostatnia aktualizacja: " +
+      new Date(data.updated_at).toLocaleTimeString("pl-PL");
+
+  } catch (err) {
+    document.getElementById("status").textContent =
+      "Błąd pobierania danych";
+  }
+}
+
+// refresh every 30 seconds
+loadAlert();
+setInterval(loadAlert, 30000);

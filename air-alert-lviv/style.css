@@ -1,0 +1,29 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 12px;
+  background: #020617;
+  max-width: 400px;
+}
+
+.alert {
+  color: #ef4444;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.safe {
+  color: #22c55e;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
